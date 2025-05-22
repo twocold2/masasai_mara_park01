@@ -24,7 +24,6 @@ jobs:
           docker compose ps
           docker compose logs
         
-
       - name: run automated test #1
         run: |          
           curl http://localhost:8080 || exit 1
