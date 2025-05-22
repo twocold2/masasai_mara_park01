@@ -1,28 +1,28 @@
-name: massai mara park01 dockerfile build
+name: massai mara park01 compose build
 
 on:
   workflow_dispatch
 
 jobs:
-  mmpark01_dockerfile_build:
+  mmpark01_compose_build:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: setup docker buildx
-        uses: docker/setup-buildx-action@v3  
+      - name: check docker compose version
+        run: docker compose version
+ 
+      - name: build with docker compose
+        run: docker compose build
         
-      - name: Build Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context:
-          file: ./Dockerfile
-          push: false
-          load: true
-          tags: massai_mara:v1
-          cache-from: type=gha
-          cache-to: type=gha,mode=max 
+      - name: run with docker compose
+        run: |
+          docker compose up -d 
+          sleep 30 
+          
+          docker compose ps
+          docker compose logs
           
       - name: run docker container
         run: |
