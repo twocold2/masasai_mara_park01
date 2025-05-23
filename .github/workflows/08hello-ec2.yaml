@@ -3,6 +3,10 @@ name: Test EC2 Connection with GHA
 on: 
     workflow_dispatch
 
+env:
+  EC2_HOSTNAME: 52.78.69.66
+  EC2_USERNAME: ubuntu    
+
 jobs:
     test-ec2-connect:
         name: test ec2 connection
@@ -20,7 +24,7 @@ jobs:
 
         - name: test SSH connect to EC2
           env: 
-            HOSTNAME:
+            HOSTNAME: 192.168.133.129
             USER_NAME: ubuntu
           run: |
             echo: "SSH 연결테스트 시작 .."
@@ -28,7 +32,7 @@ jobs:
             ssh -vvv StrictHostKeyChecking=no \
             -o "UserKnownHostFile=/dev/null" \
             -i ~/.ssh/ec2_key -p 12137 \
-            ${USER_NAME}@${HOSTNAME} '
+            ${{env.EC2_USERNAME}}@${{env.EC2_HOSTNAME}} '
                 
                 echo "현재사용자: $(whoami)"
                 echo "호스트명: $(hostname)"
@@ -39,8 +43,19 @@ jobs:
             '
 
             echo: "SSH 연결테스트 종료 .."
+        - name: up load README.md via SCP
+          run: |
+            echo "Hello, EC2 SCP" > README.md
+
+            scp -i ~/.ssh/ec2_key \
+            -o "StrictHostKeyChecking=no" \
+            -o "UserKnownHostsFile=/dev/null" \
+            -P 12137  README.md \
+            ${{env.EC2_USERNAME}}@${{env.EC2_HOSTNAME}}:~/
+
+
     
-    - name: cleanup private key
-      if: always()
-      run: | 
-        rm -f ~/.ssh/ec2_key
+        - name: cleanup private key
+          if: always()
+          run: | 
+            rm -f ~/.ssh/ec2_key
