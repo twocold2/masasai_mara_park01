@@ -1,4 +1,4 @@
-name: massai mara park01 compose dockerhub multiplejobs build
+name: massai mara park01 compose dockerhub multiplejob build
 
 on:
   workflow_dispatch
