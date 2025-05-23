@@ -68,11 +68,11 @@ jobs:
 
       - name: docker operations
         run: |
-          docker push ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME}}:${{env.IMAGE_TAG}}
-          docker tag  ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME}}:${{env.IMAGE_TAG}} \
-              ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME}}:latest
-          docker push ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME}}:latest
-          docker search ${{ env.IMAGE_NAME}}:latest    
+          docker push ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{env.IMAGE_TAG }}
+          docker tag  ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{env.IMAGE_TAG }} \
+              ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+          docker push ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+          docker search ${{ env.IMAGE_NAME }}:latest    
           
       - name: logout from docker hub
         if: always()
