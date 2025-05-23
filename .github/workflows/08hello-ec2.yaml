@@ -29,7 +29,7 @@ jobs:
             echo "SSH 연결테스트 시작 .."
         
             ssh -vvv StrictHostKeyChecking=no \
-            -o "UserKnownHostsFile=/dev/null" \
+            -o UserKnownHostsFile=/dev/null \
             -i ~/.ssh/ec2_key -p 12137 \
             ${{env.EC2_USERNAME}}@${{env.EC2_HOSTNAME}} '
                 echo "현재사용자: $(whoami)"
