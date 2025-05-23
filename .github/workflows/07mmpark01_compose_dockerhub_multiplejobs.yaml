@@ -53,7 +53,7 @@ jobs:
         with: 
           name: docker-image
       
-      - name: check downloaded files
+      - name: check downloaded image
         run: ls -al
 
       - name: load docker image
