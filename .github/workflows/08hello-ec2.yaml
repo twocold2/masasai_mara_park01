@@ -28,7 +28,7 @@ jobs:
           run: |
             echo "SSH 연결테스트 시작 .."
         
-            ssh -vvv StrictHostKeyChecking=no \
+            ssh -vvv -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -i ~/.ssh/ec2_key -p 12137 \
             ${{env.EC2_USERNAME}}@${{env.EC2_HOSTNAME}} '
