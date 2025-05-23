@@ -38,7 +38,7 @@ jobs:
         run: |
             docker save ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG}} > image.tar
 
-      - name: Upload JAR artifact
+      - name: Upload image artifact
         uses: actions/upload-artifact@v4
         with:
           name: docker-image
@@ -53,7 +53,7 @@ jobs:
         with: 
           name: docker-image
       
-      - name: check downloaded image
+      - name: check downloaded files
         run: ls -al
 
       - name: load docker image
@@ -75,7 +75,7 @@ jobs:
           docker search ${{ env.IMAGE_NAME}}:latest    
           
       - name: logout from docker hub
-        if: always()          
+        if: always()
         run: docker logout
 
   run_test:
@@ -105,5 +105,3 @@ jobs:
       - name: run automated test #3
         run: |          
           curl http://localhost:8080/animal || exit 1
-
-
