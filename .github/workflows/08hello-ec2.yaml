@@ -5,7 +5,7 @@ on:
 
 env:
   EC2_HOSTNAME: 52.78.69.66
-  EC2_USERNAME: ubuntu    
+  EC2_USERNAME: ubuntu  
 
 jobs:
     test-ec2-connect:
@@ -17,33 +17,30 @@ jobs:
           run: |
             mkdir -p  ~/.ssh
             chmod 700 ~/.ssh
+
         - name: make private key file
           run: | 
             echo "${{ secrets.EC2_PRIVATEKEY }}" > ~/.ssh/ec2_key
             chmod 600 ~/.ssh/ec2_key
 
         - name: test SSH connect to EC2
-          env: 
-            HOSTNAME: 192.168.133.129
-            USER_NAME: ubuntu
+
           run: |
-            echo: "SSH 연결테스트 시작 .."
-            
+            echo "SSH 연결테스트 시작 .."
+        
             ssh -vvv StrictHostKeyChecking=no \
             -o "UserKnownHostFile=/dev/null" \
             -i ~/.ssh/ec2_key -p 12137 \
             ${{env.EC2_USERNAME}}@${{env.EC2_HOSTNAME}} '
-                
                 echo "현재사용자: $(whoami)"
                 echo "호스트명: $(hostname)"
                 echo "현재시간: $(date)"
                 echo "메모리 사용량"
                 free -h
-            
             '
 
-            echo: "SSH 연결테스트 종료 .."
-        - name: up load README.md via SCP
+            echo "SSH 연결테스트 종료 .."
+        - name: upload README.md via SCP
           run: |
             echo "Hello, EC2 SCP" > README.md
 
@@ -59,3 +56,4 @@ jobs:
           if: always()
           run: | 
             rm -f ~/.ssh/ec2_key
+
