@@ -88,7 +88,7 @@ jobs:
 
       - name: run with docker compose
         run: |
-          docker compose -f ./compose-multijobs.yaml up -d 
+          docker compose -f ./docker-compose-multijobs.yaml up -d 
           sleep 30 
           
           docker compose ps
