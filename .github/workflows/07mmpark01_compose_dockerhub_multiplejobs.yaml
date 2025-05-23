@@ -1,4 +1,4 @@
-name: massai mara park01 compose dockerhub multiplejob build
+name: massai mara park01 compose dockerhub multiplejobs build
 
 on:
   workflow_dispatch
@@ -28,7 +28,7 @@ jobs:
           load: true
           tags: ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG}} > image.tar
           cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-to: type=gha, mode=max
       
       - name: check image
         run: |
@@ -68,8 +68,8 @@ jobs:
 
       - name: docker operations
         run: |
-          docker push ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{env.IMAGE_TAG }}
-          docker tag  ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{env.IMAGE_TAG }} \
+          docker push ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          docker tag  ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} \
               ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
           docker push ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
           docker search ${{ env.IMAGE_NAME }}:latest    
