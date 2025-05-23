@@ -94,7 +94,7 @@ jobs:
       - name: test SSH connect to EC2
         run: |
           ssh -o "StrictHostKeyChecking=no" \
-            -o "UserKnownHostsFile=/dev/null" \ 
+            -o "UserKnownHostsFile=/dev/null" \
             -i ~/.ssh/ec2_key -p 12137 \
             ${{env.EC2_USERNAME}}@${{env.EC2_HOSTNAME}}   '
 
