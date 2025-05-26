@@ -2,7 +2,8 @@ version: "3.9"
 
 services:
   app:
-    image: twocold2/massai_mara:latest
+    #image: twocold2/massai_mara:latest
+    image: twocold2/massai_mara:arm64
     container_name: massai_mara_app
     ports:
       - "8080:8080"
